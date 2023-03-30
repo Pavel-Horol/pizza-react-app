@@ -14,10 +14,10 @@ function App() {
 				<Header />
     			<div className="content">
 				<Routes>
-					<Route path='pizza-react-app/' element={<Home />}/>
-					<Route path='pizza-react-app/cart' element={<Cart/>}/>
-					<Route path='pizza-react-app/pizza/:id' element={<FullPizza/>}/>
-					<Route path='pizza-react-app/*' element={<NotFound/>}/>
+					<Route path='/pizza-react-app/' element={<Home />}/>
+					<Route path='/pizza-react-app/cart' element={<Cart/>}/>
+					<Route path='/pizza-react-app/pizza/:id' element={<FullPizza/>}/>
+					<Route path='/pizza-react-app/*' element={<NotFound/>}/>
 				</Routes>
     			</div>
   		</div>

@@ -114,7 +114,7 @@ const Cart = () => {
           </div>
           <div className="cart__bottom-buttons">
             <Link
-              to="pizza-react-app/"
+              to="/pizza-react-app/"
               className="button button--outline button--add go-back-btn"
             >
               <svg
