@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useParams } from "react-router";
 import axios from "axios";
 const FullPizza = () => {
   const { id } = useParams();
+  const [pizza, setPizza] = useState()
   useEffect(() => {
-     axios
-      .get("https://64076122862956433e6de063.mockapi.io/pizzas/" + id)
-      .then(res => console.log(res.data));
+    async function fetchPizzas(){
+      const {data} = await axios.get("https://64076122862956433e6de063.mockapi.io/pizzas/" + id)
+    }
   }, []);
+
   return (
     <div>
       <img src="" />
