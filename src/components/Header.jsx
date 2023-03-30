@@ -16,7 +16,7 @@ const Header = () => {
       <div className="container">
         
         <div className="header__logo">
-          <Link to="/">
+          <Link to="pizza-react-app/">
             <img width="38" src={logoSvg} alt="Pizza logo" />
           </Link>
           <div>
@@ -26,7 +26,7 @@ const Header = () => {
         </div>
         <Search />
         {location.pathname !== '/cart' && (<div className="header__cart">
-        <Link className='button button--cart' to='/cart'>
+        <Link className='button button--cart' to='pizza-react-app/cart'>
         <span>{totalPrice} ₴</span>
             <div className="button__delimiter"></div>
             <svg

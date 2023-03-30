@@ -12,7 +12,7 @@ const CartEmpty = () => {
               Для того, чтобы заказать пиццу, перейди на главную страницу.
             </p>
             <img src={img} alt="Empty cart" />
-            <Link to="/" className="button button--black">
+            <Link to="pizza-react-app/" className="button button--black">
               <span>Вернуться назад</span>
             </Link>
           </div>
