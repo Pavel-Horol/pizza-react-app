@@ -25,7 +25,7 @@ const Header = () => {
           </div>
         </div>
         <Search />
-        {location.pathname !== '/cart' && (<div className="header__cart">
+        {location.pathname !== '/pizza-react-app/cart' && (<div className="header__cart">
         <Link className='button button--cart' to='/pizza-react-app/cart'>
         <span>{totalPrice} ₴</span>
             <div className="button__delimiter"></div>
