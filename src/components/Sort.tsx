@@ -2,47 +2,52 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
-export const listSort = [
-    {name: 'популярністю (DESC)', sortProperty: 'rating'},
-    {name: 'популярністю (ASC)', sortProperty: '-rating'},
-    {name: 'ціною (DESC)', sortProperty: 'price'},
-    {name: 'ціною (ASC)', sortProperty: '-price'},
-    {name: 'алфавітом (DESC)', sortProperty: 'title'},
-    {name: 'алфавітом (ASC)', sortProperty: '-title'}
-  ];
+type SortItem = {
+  name: string;
+  sortProperty: string;
+};
+
+export const listSort: SortItem[] = [
+  { name: "популярністю (DESC)", sortProperty: "rating" },
+  { name: "популярністю (ASC)", sortProperty: "-rating" },
+  { name: "ціною (DESC)", sortProperty: "price" },
+  { name: "ціною (ASC)", sortProperty: "-price" },
+  { name: "алфавітом (DESC)", sortProperty: "title" },
+  { name: "алфавітом (ASC)", sortProperty: "-title" },
+];
 
 const Sort = () => {
-  const dispatch = useDispatch()
-  const sort = useSelector(state => state.filter.sort)
+  const dispatch = useDispatch();
+  const sort = useSelector((state: any) => state.filter.sort);
   const [isOpen, setIsOpen] = useState(false);
-  const sortRef = useRef(null)
+  const sortRef = useRef<SVGSVGElement>(null);
 
-
-  function onClickListItem(obj) {
+  function onClickListItem(obj: SortItem) {
     dispatch(setSort(obj));
     setIsOpen((prev) => !prev);
   }
+
   useEffect(() => {
-    const handleClickOutside = event => {
-      let path = event.path || (event.composedPath && event.composedPath())
-      if(!path.includes(sortRef.current)){
-        setIsOpen(false)
-        console.log('set is close')
+    const handleClickOutside = (event: any) => {
+      let path = event.path || (event.composedPath && event.composedPath());
+      if (!path.includes(sortRef.current)) {
+        setIsOpen(false);
+        console.log("set is close");
       }
-      
-    }
-    document.body.addEventListener('click', handleClickOutside)
+    };
+
+    document.body.addEventListener("click", handleClickOutside);
 
     return () => {
-      document.body.removeEventListener('click', handleClickOutside)
-    }
-  }, [])
-
+      document.body.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div ref={sortRef} className="sort">
+    <div className="sort">
       <div className="sort__label">
         <svg
+          ref={sortRef}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -55,9 +60,13 @@ const Sort = () => {
           />
         </svg>
         <b>Сортувати за:</b>
-        <span onClick={() => {
-          setIsOpen((prev) => !prev)
-          }}>{sort.name}</span>
+        <span
+          onClick={() => {
+            setIsOpen((prev) => !prev);
+          }}
+        >
+          {sort.name}
+        </span>
       </div>
       {isOpen && (
         <div className="sort__popup">
@@ -70,10 +79,12 @@ const Sort = () => {
                     onClickListItem(obj);
 
                     // sortFunction(index);
-
                   }}
-                  className={sort.sortProperty === obj.sortProperty ? "active" : ""}
-                  >{obj.name}
+                  className={
+                    sort.sortProperty === obj.sortProperty ? "active" : ""
+                  }
+                >
+                  {obj.name}
                 </li>
               );
             })}

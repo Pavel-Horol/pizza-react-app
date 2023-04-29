@@ -1,19 +1,37 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../redux/slices/cartSlice";
-const typeNames = ['тонка', 'традиційна']
+const typeNames = ["тонка", "традиційна"];
 
-const PizzaBlock = ({  id,  title,  price, sizes, imageUrl, category, rating, types,}) => {
+type PizzaBlockProps = {
+  id: string;
+  title: string;
+  price: number;
+  sizes: number[];
+  imageUrl: string;
+  rating: number;
+  types: number[];
+};
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  id,
+  title,
+  price,
+  sizes,
+  imageUrl,
+  rating,
+  types,
+}) => {
   const dispatch = useDispatch();
-  const cartItem = useSelector(state => state.cart.items.find(obj => obj.id === id))
+  const cartItem = useSelector((state: any) =>
+    state.cart.items.find((obj) => obj.id === id)
+  );
   const [pizzaSizeActiveIndex, setPizzaSizeActiveIndex] = useState(null);
   const [pizzaTypeActiveIndex, setPizzaTypeActiveIndex] = useState(null);
-
 
   function pizzaSizeActive(index, setFun) {
     setFun(index);
   }
-  const addedCount = cartItem ? cartItem.count : 0
+  const addedCount = cartItem ? cartItem.count : 0;
   const onClickAdd = () => {
     const item = {
       id,
@@ -21,7 +39,7 @@ const PizzaBlock = ({  id,  title,  price, sizes, imageUrl, category, rating, ty
       price,
       imageUrl,
       size: sizes[pizzaSizeActiveIndex],
-      type: typeNames[pizzaTypeActiveIndex]
+      type: typeNames[pizzaTypeActiveIndex],
     };
     dispatch(addItem(item));
   };
@@ -65,7 +83,10 @@ const PizzaBlock = ({  id,  title,  price, sizes, imageUrl, category, rating, ty
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} $</div>
-        <button onClick={onClickAdd} className="button button--outline button--add">
+        <button
+          onClick={onClickAdd}
+          className="button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
@@ -79,7 +100,7 @@ const PizzaBlock = ({  id,  title,  price, sizes, imageUrl, category, rating, ty
             />
           </svg>
           <span>Добавить</span>
-          { addedCount > 0 && <i>{addedCount}</i>}
+          {addedCount > 0 && <i>{addedCount}</i>}
         </button>
       </div>
     </div>

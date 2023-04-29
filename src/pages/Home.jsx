@@ -1,28 +1,20 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Sort from "../components/Sort";
 import Categories from "../components/Categories";
 import MyLoader from "../components/preLoader";
 import PizzaBlock from "../components/PizzaBlock";
-import axios from "axios";
-import qs from "qs";
 import { useNavigate } from "react-router";
 import PaginationComponent from "../components/Pagination/Pagination";
-import { SearchContext } from "../App";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCategotyId,
-  setCurrentPage,
-  setFilters,
-} from "../redux/slices/filterSlice";
-import { setItems, fetchPizzas } from "../redux/slices/pizzasSlice";
-import { listSort } from "../components/Sort";
+import { setCategotyId, setCurrentPage } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-
 
   const { categoryId, sort, currentPage, searchValue } = useSelector(
     (state) => state.filter
@@ -45,21 +37,14 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : "";
     const search = searchValue ? `search=${searchValue}` : "";
 
-    dispatch(
-      fetchPizzas({
-        sortBy,
-        order,
-        category,
-        search,
-        currentPage,
-      })
-    );
+    dispatch(fetchPizzas({ sortBy, order, category, search, currentPage }));
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
     getPizzas();
   }, [categoryId, sortType, searchValue, currentPage]);
+
   // categoryId, sortType, searchValue, currentPage
   //   useEffect(() => {
 
@@ -95,7 +80,11 @@ const Home = () => {
 
   // }, [categoryId, sortType, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    // <Link key={obj.id} to={`/pizza-react-app/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    // {/* </Link> */}
+  ));
   const skeletons = [...new Array(6)].map((_, index) => (
     <MyLoader key={index} />
   ));
@@ -111,8 +100,7 @@ const Home = () => {
         <div className="content__error-info">
           <h2>Something went wrong😕</h2>
           <p>
-            I dont know what went wrong or  i have 
-            no money to resolve this error
+            I dont know what went wrong or i have no money to resolve this error
           </p>
         </div>
       ) : (

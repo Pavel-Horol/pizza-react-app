@@ -6,22 +6,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 
-const Search = () => {
+const Search: React.FC = () => {
 	const dispatch = useDispatch()
 	const [ value, setValue ] = useState('');
-	const inputEl = useRef(null)
-	const {searchValue} = useSelector(state => state.filter)
+	const inputEl = useRef<HTMLInputElement>(null)
+	const {searchValue} = useSelector((state: any) => state.filter)
  	const onClickClear = () => {
 		dispatch(setSearchValue(""))
 		setValue("")
 		inputEl.current.focus()
   	};
 
-	const updateSearchValue = useCallback(debounce((str) => {
+	const updateSearchValue = useCallback(debounce((str: string) => {
 			dispatch(setSearchValue(str))
 			}, 1000),[])
 
-	const onChangeInput = event => {
+	const onChangeInput = (event: any) => {
 		setValue(event.target.value)
 		updateSearchValue(event.target.value)
 	}
@@ -43,7 +43,7 @@ const Search = () => {
       		<input
 				ref={inputEl}
         		value={value}
-       			onChange={(event) => {
+       			onChange={(event: any) => {
 					onChangeInput(event)
 				}}
         		className={styles.root}
