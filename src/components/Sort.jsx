@@ -2,12 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSort } from "../redux/slices/filterSlice";
 
-type SortItem = {
-  name: string;
-  sortProperty: string;
-};
 
-export const listSort: SortItem[] = [
+export const listSort = [
   { name: "популярністю (DESC)", sortProperty: "rating" },
   { name: "популярністю (ASC)", sortProperty: "-rating" },
   { name: "ціною (DESC)", sortProperty: "price" },
@@ -18,17 +14,17 @@ export const listSort: SortItem[] = [
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state: any) => state.filter.sort);
+  const sort = useSelector((state) => state.filter.sort);
   const [isOpen, setIsOpen] = useState(false);
   const sortRef = useRef<SVGSVGElement>(null);
 
-  function onClickListItem(obj: SortItem) {
+  function onClickListItem(obj) {
     dispatch(setSort(obj));
     setIsOpen((prev) => !prev);
   }
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
+    const handleClickOutside = (event) => {
       let path = event.path || (event.composedPath && event.composedPath());
       if (!path.includes(sortRef.current)) {
         setIsOpen(false);
